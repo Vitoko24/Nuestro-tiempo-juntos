@@ -1,0 +1,119 @@
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nuestra Historia Comenzó el 28 de Octubre de 2022</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-image: url('Diseño sin título.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      text-align: center;
+      color: #DB2171; /* 💖 Color del texto */
+      padding: 50px;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden; /* Evita movimiento vertical */
+    }
+
+    /* Capa translúcida para legibilidad */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(3px);
+      z-index: -1;
+    }
+
+    h1 {
+      color: #DB2171; /* 💖 Título en tu color */
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.6);
+    }
+
+    .contador {
+      font-size: 1.5em;
+      background: #FFE2FF; /* 🩷 Recuadro en tu color */
+      display: inline-block;
+      padding: 20px 40px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      line-height: 1.6em;
+      min-width: 480px;
+      transition: opacity 0.4s ease;
+    }
+
+    .tiempo {
+      color: #DB2171; /* 💖 Tiempo en tu color */
+      font-weight: bold;
+    }
+
+    .corazon {
+      color: #DB2171; /* 💖 Corazón en tu color */
+      font-size: 2em;
+      margin-top: 20px;
+      animation: latir 1.5s infinite ease-in-out;
+    }
+
+    @keyframes latir {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Nuestra Historia Comenzó el 28 de Octubre de 2022</h1>
+  <div class="contador" id="contador"></div>
+  <div class="corazon">💖</div>
+
+  <script>
+    const fechaInicio = new Date(2022, 9, 28, 0, 0, 0); // Octubre = 9
+    const contenedor = document.getElementById("contador");
+
+    function actualizarContador() {
+      const ahora = new Date();
+      let diff = ahora - fechaInicio;
+
+      // Calcular años, meses y días exactos
+      let anos = ahora.getFullYear() - fechaInicio.getFullYear();
+      let meses = ahora.getMonth() - fechaInicio.getMonth();
+      let dias = ahora.getDate() - fechaInicio.getDate();
+
+      if (dias < 0) {
+        meses--;
+        const mesAnterior = new Date(ahora.getFullYear(), ahora.getMonth(), 0);
+        dias += mesAnterior.getDate();
+      }
+      if (meses < 0) {
+        anos--;
+        meses += 12;
+      }
+
+      const horas = ahora.getHours();
+      const minutos = ahora.getMinutes();
+      const segundos = ahora.getSeconds();
+
+      // Suaviza el cambio visual
+      contenedor.style.opacity = "0.6";
+
+      setTimeout(() => {
+        contenedor.innerHTML = `
+          Han pasado <span class="tiempo">${anos}</span> años, 
+          <span class="tiempo">${meses}</span> meses y 
+          <span class="tiempo">${dias}</span> días<br>
+          <span class="tiempo">${horas.toString().padStart(2,'0')}</span> :
+          <span class="tiempo">${minutos.toString().padStart(2,'0')}</span> :
+          <span class="tiempo">${segundos.toString().padStart(2,'0')}</span>`;
+        contenedor.style.opacity = "1";
+      }, 200);
+    }
+
+    actualizarContador();
+    setInterval(actualizarContador, 1000); // Actualiza cada segundo
+  </script>
+</body>
+</html>
